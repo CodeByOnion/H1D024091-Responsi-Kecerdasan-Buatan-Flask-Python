@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H1D024091 - Sistem Fuzzy Deteksi Kelelahan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .card-result {
+            border-radius: 15px;
+            border: none;
+        }
+
+        .range-value {
+            font-weight: bold;
+            color: #0d6efd;
+        }
+    </style>
+</head>
+
+<body class="bg-dark text-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="card border-0 shadow-lg bg-secondary text-white mb-4" style="border-radius: 15px;">
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-center mb-4">🧠 Responsi Kecerdasan Buatan</h3>
+                        <p class="text-center text-light-50 small mb-4">Ukur tingkat kelelahan saraf berdasarkan pola
+                            tidur dan beban kuliah Anda.</p>
+
+                        <form action="/fuzzy" method="POST">
+                            <div class="mb-4">
+                                <label class="form-label d-flex justify-content-between">
+                                    <span>Durasi Tidur Semalam</span>
+                                    <span class="range-value"><output id="outDurasi">6</output> Jam</span>
+                                </label>
+                                <input type="range" class="form-range" name="durasi" min="0" max="12" step="0.5"
+                                    value="6" oninput="document.getElementById('outDurasi').value = this.value">
+                                <div class="d-flex justify-content-between small text-white-50">
+                                    <span>0 Jam</span>
+                                    <span>12 Jam</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label d-flex justify-content-between">
+                                    <span>Beban Kegiatan Kuliah</span>
+                                    <span class="range-value">Level <output id="outBeban">5</output></span>
+                                </label>
+                                <input type="range" class="form-range" name="beban" min="1" max="10" step="1" value="5"
+                                    oninput="document.getElementById('outBeban').value = this.value">
+                                <div class="d-flex justify-content-between small text-white-50">
+                                    <span>Santai</span>
+                                    <span>Berat (UAS/Proyek)</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm">ANALISIS KONDISI
+                                SARAF</button>
+                            <a href="/" class="btn btn-outline-danger btn-sm mt-4 ms-2">Kembali</a>
+                        </form>
+                    </div>
+                </div>
+
+                {% if skor is defined %}
+                <div class="card bg-white text-dark shadow-lg card-result animate__animated animate__fadeInUp">
+                    <div class="card-body p-4 text-center">
+                        <h5 class="text-muted text-uppercase small fw-bold mb-3">Hasil Analisis</h5>
+
+                        <div class="progress mb-3" style="height: 30px; border-radius: 10px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated 
+                                {% if skor < 40 %} bg-success 
+                                {% elif skor < 70 %} bg-warning text-dark 
+                                {% else %} bg-danger 
+                                {% endif %}" id="progressBar" role="progressbar" data-width="{{ skor }}"
+                                aria-valuenow="{{ skor }}" aria-valuemin="0" aria-valuemax="100">
+                                <strong>{{ skor }}%</strong>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <span
+                                class="badge {% if skor < 40 %} bg-success {% elif skor < 70 %} bg-warning text-dark {% else %} bg-danger {% endif %} mb-2">
+                                {{ status }}
+                            </span>
+                            <h4 class="fw-bold mb-0">Tingkat Kelelahan: {{ skor }}%</h4>
+                        </div>
+
+                        <div class="p-3 bg-light rounded shadow-sm border-start border-4 
+                            {% if skor < 40 %} border-success 
+                            {% elif skor < 70 %} border-warning 
+                            {% else %} border-danger 
+                            {% endif %}">
+                            <p class="mb-0 text-secondary" style="font-style: italic;">"{{ saran }}"</p>
+                        </div>
+
+                        <a href="/fuzzy" class="btn btn-outline-secondary btn-sm mt-4">Reset Analisis</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <footer class="mt-5 text-center text-white-50 small">
+            <p>&copy; H1D024091 - Sistem Fuzzy Deteksi Kelelahan</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const bar = document.getElementById("progressBar");
+            if (bar) {
+                const width = bar.getAttribute("data-width");
+                bar.style.width = width + "%";
+            }
+        });
+    </script>
+</body>
+
+</html>

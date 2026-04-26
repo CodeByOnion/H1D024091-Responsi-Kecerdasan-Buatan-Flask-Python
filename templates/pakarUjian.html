@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H1D024091 - Sistem Pakar Prediksi Ujian</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-dark text-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card border-0 shadow-lg bg-secondary text-white mb-4" style="border-radius: 15px;">
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-center text-warning fw-bold mb-2">Sistem Pakar Prediksi Hasil Ujian
+                        </h3>
+                        <p class="text-center text-light-50 small mb-4">Prediksi hasil ujian berdasarkan faktor
+                            persiapan akademik dan non-akademik</p>
+                        <form action="/pakar-ujian" method="POST">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <h5 class="border-bottom border-secondary pb-2 mb-3 text-info">Persiapan Akademik
+                                    </h5>
+
+                                    <label class="form-label small">1. Penguasaan Konsep Dasar:</label>
+                                    <select name="q1" class="form-select bg-dark text-white border-0 mb-3" required>
+                                        <option value="" selected disabled hidden>-- Pilih Jawaban --</option>
+                                        <option value="A">Paham konsep tanpa melihat catatan</option>
+                                        <option value="B">Bingung, bergantung pada hafalan/catatan</option>
+                                    </select>
+
+                                    <label class="form-label small">2. Latihan Praktikal/Koding:</label>
+                                    <select name="q2" class="form-select bg-dark text-white border-0 mb-3" required>
+                                        <option value="" selected disabled hidden>-- Pilih Jawaban --</option>
+                                        <option value="A">Sering latihan soal mandiri</option>
+                                        <option value="B">Hanya sekadar membaca materi</option>
+                                    </select>
+
+                                    <label class="form-label small">3. Manajemen Waktu Belajar:</label>
+                                    <select name="q3" class="form-select bg-dark text-white border-0 mb-3" required>
+                                        <option value="" selected disabled hidden>-- Pilih Jawaban --</option>
+                                        <option value="A">Dicicil dari jauh hari</option>
+                                        <option value="B">Sistem Kebut Semalam (SKS)</option>
+                                    </select>
+
+                                    <label class="form-label small">4. Sumber Belajar:</label>
+                                    <select name="q4" class="form-select bg-dark text-white border-0 mb-3" required>
+                                        <option value="" selected disabled hidden>-- Pilih Jawaban --</option>
+                                        <option value="A">Modul dosen & referensi luar</option>
+                                        <option value="B">Hanya membaca PPT seadanya</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h5 class="border-bottom border-secondary pb-2 mb-3 text-info">Kondisi Fisik &
+                                        Mental</h5>
+
+                                    <label class="form-label small">5. Durasi Istirahat Semalam:</label>
+                                    <select name="q5" class="form-select bg-dark text-white border-0 mb-3" required>
+                                        <option value="" selected disabled hidden>-- Pilih Jawaban --</option>
+                                        <option value="A">Cukup (> 6 Jam)</option>
+                                        <option value="B">Begadang (< 6 Jam)</option>
+                                    </select>
+
+                                    <label class="form-label small">6. Asupan Energi:</label>
+                                    <select name="q6" class="form-select bg-dark text-white border-0 mb-3" required>
+                                        <option value="" selected disabled hidden>-- Pilih Jawaban --</option>
+                                        <option value="A">Nutrisi dan cairan tercukupi</option>
+                                        <option value="B">Perut kosong / hanya kafein</option>
+                                    </select>
+
+                                    <label class="form-label small">7. Pemahaman Instruksi Soal:</label>
+                                    <select name="q7" class="form-select bg-dark text-white border-0 mb-3" required>
+                                        <option value="" selected disabled hidden>-- Pilih Jawaban --</option>
+                                        <option value="A">Langsung paham arah soal</option>
+                                        <option value="B">Butuh waktu lama mencerna maksud dosen</option>
+                                    </select>
+
+                                    <label class="form-label small">8. Manajemen Pengerjaan:</label>
+                                    <select name="q8" class="form-select bg-dark text-white border-0 mb-3" required>
+                                        <option value="" selected disabled hidden>-- Pilih Jawaban --</option>
+                                        <option value="A">Sistematis dan teratur</option>
+                                        <option value="B">Stuck lama di satu soal / acak-acakan</option>
+                                    </select>
+
+                                    <label class="form-label small">9. Stabilitas Mental:</label>
+                                    <select name="q9" class="form-select bg-dark text-white border-0 mb-3" required>
+                                        <option value="" selected disabled hidden>-- Pilih Jawaban --</option>
+                                        <option value="A">Tenang dan fokus</option>
+                                        <option value="B">Panik dan overthinking</option>
+                                    </select>
+
+                                    <label class="form-label small">10. Beban Fisik Tambahan:</label>
+                                    <select name="q10" class="form-select bg-dark text-white border-0 mb-3" required>
+                                        <option value="" selected disabled hidden>-- Pilih Jawaban --</option>
+                                        <option value="A">Bugar dan fit</option>
+                                        <option value="B">Pegal, kelelahan, habis diforsir</option>
+                                    </select>
+
+                                    <label class="form-label small">11. Intuisi Hasil Ujian:</label>
+                                    <select name="q11" class="form-select bg-dark text-white border-0 mb-3" required>
+                                        <option value="" selected disabled hidden>-- Pilih Jawaban --</option>
+                                        <option value="A">Yakin di atas 70% benar</option>
+                                        <option value="B">Pasrah dan ragu-ragu</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit"
+                                class="btn btn-warning w-100 mt-4 py-3 fw-bold text-dark shadow">PREDIKSI HASIL
+                                UJIAN</button>
+                            <a href="/" class="btn btn-outline-danger btn-sm mt-4 ms-2">Kembali</a>
+                        </form>
+
+                        <div class="text-center mt-3">
+                        </div>
+                    </div>
+                </div>
+
+                {% if prediksi is defined %}
+                <div class="card bg-white text-dark shadow-lg animate__animated animate__fadeInUp"
+                    style="border-radius: 15px;">
+                    <div class="card-body p-4 text-center">
+                        <h5 class="text-muted text-uppercase small fw-bold mb-3">Hasil Diagnosis Pakar</h5>
+
+                        <span class="badge bg-{{ badge_color }} fs-5 px-4 py-2 mb-3 shadow-sm">{{ prediksi }}</span>
+                        <br>
+                        <span class="text-muted small">Confidence Score: {{ total_skor }} / 11 Fakta Terpenuhi</span>
+                        <hr>
+
+                        <p class="lead mb-4" style="font-weight: 500;">"{{ evaluasi }}"</p>
+
+                        <a href="/pakar-ujian" class="btn btn-outline-secondary btn-sm px-4">Evaluasi Ulang</a>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+        <footer class="mt-5 text-center text-white-50 small">
+            <p>&copy; H1D024091 - Sistem Pakar Prediksi Hasil Ujian</p>
+        </footer>
+    </div>
+</body>
+
+</html>
